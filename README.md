@@ -1,30 +1,104 @@
-# React + TypeScript + Vite
+# DataTable Component Summary:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The DataTable component facilitates efficient tabular data management, with a unique focus on user customization. Users can seamlessly modify column order and visibility, and the component intelligently saves and retrieves these configurations for a consistent experience across sessions.
 
-Currently, two official plugins are available:
+# Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install the dependencies and start the server.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+npm install
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Props:
+
+### 1. tableKey: string;
+
+Required: Yes
+Description: Mandatory for DataTable to store the last saved column order and views in localStorage.
+
+### 2. data:
+
+Required: Yes
+Description: The data to be listed in the DataTable.
+
+### 3. handleSearch;
+
+Required: No
+Description: Controls the search action if the search prop is true.
+
+### 4. columns: [];
+
+Required: Yes
+Description: Configuration of columns in the DataTable.
+
+### 5. filter: boolean;
+
+Required: No
+Description: Controls the visibility of the DataTable column editor.
+
+### 6. search: boolean;
+
+Required: No
+Description: Controls the visibility of the search input.
+
+### 7. itemsPerPage: number;
+
+Required: No
+Description: Number of items per page.
+
+### 8. loading: boolean;
+
+Required: No
+Description: Loading state indicator.
+
+### 9. pagination: boolean;
+
+Required: No
+Description: Controls the pagination feature.
+
+### 10. handlePageChange;
+
+Required: No
+Description: Handles page change events.
+
+### 11. handleItemsPerPageChange;
+
+Required: No
+Description: Handles items per page change events.
+
+### 12. selectableRows: boolean;
+
+Required: No
+Description: Makes rows selectable.
+
+### 13. onSelectedRowsChange;
+
+Required: No
+Description: Tracks the selected rows.
+
+### 14. paginationTotalRows: number;
+
+Required: No
+Description: Specifies the total number of pages.
+
+### 15. noDataFoundComponent: React.ReactNode;
+
+Required: No
+Description: Component displayed when no data is found.
+
+### 16. loadingComponent: React.ReactNode;
+
+Required: No
+Description: Component displayed during loading.
+
+### 17. singleSelect: boolean;
+
+Required: No
+Description: Allows only one selection at a time. SelectableRows must be true.
+
+### 18. debounceSearchTime: number;
+
+Required: No
+Description: Time delay applied to the search input.
