@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -6,6 +5,8 @@ import DebounceTextInput from "./DebounceTextInput";
 import Pagination from "./Pagination";
 import TableRow from "./TableRow";
 import TableHeader from "./TableHeader";
+
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export type TColumn = {
   id: string | number;
@@ -63,6 +64,7 @@ const DataTable: React.FC<DataTableProps> = ({
     columns?.map((column) => column)
   );
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+
   const handleButtonClick = () => {
     setShowDropdown(!showDropdown);
     setEditMode(null);
@@ -113,18 +115,15 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const handleColumnSelect = (col: TColumn) => {
     setSelectedColumns((prevSelectedColumns) => {
-      if (prevSelectedColumns?.some((column) => column.id === col.id)) {
-        const filteredColumns = prevSelectedColumns.filter(
-          (column) => column.id !== col.id
-        );
-        saveEdittedDataTable(filteredColumns);
-        setSelectedColumns(filteredColumns);
-        return filteredColumns;
-      } else {
-        saveEdittedDataTable([...prevSelectedColumns, col]);
-        setSelectedColumns([...prevSelectedColumns, col]);
-        return [...prevSelectedColumns, col];
-      }
+      const filteredColumns = prevSelectedColumns?.filter(
+        (column) => column.id !== col.id
+      );
+      const newColumns =
+        filteredColumns.length === prevSelectedColumns.length
+          ? [...prevSelectedColumns, col]
+          : filteredColumns;
+      saveEdittedDataTable(newColumns);
+      return newColumns;
     });
   };
 
@@ -135,9 +134,8 @@ const DataTable: React.FC<DataTableProps> = ({
   const onColumnReorder = (dragIndex: number, hoverIndex: number) => {
     setSelectedColumns((prevColumns) => {
       const newArray = [...prevColumns];
-      const elementToMove = newArray[dragIndex];
-      newArray.splice(dragIndex, 1);
-      newArray.splice(hoverIndex, 0, elementToMove);
+      const [movedColumn] = newArray.splice(dragIndex, 1);
+      newArray.splice(hoverIndex, 0, movedColumn);
       saveEdittedDataTable(newArray);
       return newArray;
     });
@@ -166,21 +164,15 @@ const DataTable: React.FC<DataTableProps> = ({
             </label>
             <select
               className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
+              value={itemsPerPage}
               onChange={(e) => {
                 handleItemsPerPageChange &&
                   handleItemsPerPageChange(Number(e.target.value));
-                itemsPerPage = Number(e.target.value);
               }}
             >
-              <option value="10" selected={itemsPerPage === 20}>
-                Show 10 Rows
-              </option>
-              <option value="20" selected={itemsPerPage === 20}>
-                Show 20 Rows
-              </option>
-              <option value="30" selected={itemsPerPage === 30}>
-                Show 30 Rows
-              </option>
+              <option value="10">Show 10 Rows</option>
+              <option value="20">Show 20 Rows</option>
+              <option value="30">Show 30 Rows</option>
             </select>
             <div className="relative">
               <button onClick={handleButtonClick}>
