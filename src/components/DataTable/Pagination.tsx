@@ -18,15 +18,17 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      onPageChange(currentPage + 1);
+      const nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+      onPageChange(nextPage);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      onPageChange(currentPage - 1);
+      const prevPage = currentPage - 1;
+      setCurrentPage(prevPage);
+      onPageChange(prevPage);
     }
   };
 
@@ -36,7 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   const renderPageNumbers = () => {
-    const pageNumbers = [];
+    const pageNumbers: React.ReactNode[] = [];
     const displayPages = 5; // İstediğiniz görünen sayfa sayısı
 
     for (let i = 1; i <= totalPages; i++) {

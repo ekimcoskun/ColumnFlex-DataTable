@@ -1,32 +1,26 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useDrag, useDrop } from "react-dnd";
+import React from "react";
 import { TColumn } from "./DataTable";
 
-type THeader = {
-  columns: TColumn[];
-  editMode: null | "order" | "show";
+type DraggableColumnProps = {
+  column: TColumn;
+  index: number;
+  editMode: "order" | "show" | null;
   onColumnReorder: (dragIndex: number, hoverIndex: number) => void;
-  selectableRows?: boolean;
 };
 
-const DraggableColumn = ({
+const DraggableColumn: React.FC<DraggableColumnProps> = ({
   column,
   index,
   onColumnReorder,
   editMode,
-}: {
-  column: TColumn;
-  index: number;
-  editMode: THeader["editMode"];
-  onColumnReorder: THeader["onColumnReorder"];
 }) => {
   const [, drop] = useDrop(() => ({
     accept: "column",
     drop: (draggedItem: { index: number }) => {
-      //
       if (draggedItem.index !== index) {
         onColumnReorder(draggedItem.index, index);
-        //draggedItem.index = index;
       }
     },
   }));
@@ -39,14 +33,10 @@ const DraggableColumn = ({
     }),
   }));
 
-  /* const columnStyle = {
-    border: isDragging ? "5px solid pink" : "0px",
-  }; */
-
   return (
     <div
       ref={(node) => drag(drop(node))}
-      className={`py-2 px-4 border-b text-gray-700 text-xs font-medium cursor-pointer flex items-center`} /* style={columnStyle} */
+      className={`py-2 px-4 border-b text-gray-700 text-xs font-medium cursor-pointer flex items-center`}
     >
       {editMode === "order" && <Icon icon="grommet-icons:drag" />}
       {column.name}
@@ -54,12 +44,19 @@ const DraggableColumn = ({
   );
 };
 
-const TableHeader = ({
+type TableHeaderProps = {
+  columns: TColumn[];
+  editMode: "order" | "show" | null;
+  onColumnReorder: (dragIndex: number, hoverIndex: number) => void;
+  selectableRows?: boolean;
+};
+
+const TableHeader: React.FC<TableHeaderProps> = ({
   columns,
   editMode,
   onColumnReorder,
   selectableRows,
-}: THeader) => {
+}) => {
   return (
     <thead className="bg-gray-200">
       <tr className="">

@@ -17,7 +17,7 @@ export type TColumn = {
 
 type DataTableProps = {
   tableKey: string;
-  data: any[];
+  data: Record<string, any>[];
   handleSearch?: (value: string) => void;
   columns: TColumn[];
   filter?: boolean;
@@ -63,7 +63,7 @@ const DataTable: React.FC<DataTableProps> = ({
   const [selectedColumns, setSelectedColumns] = useState<TColumn[]>(
     columns?.map((column) => column)
   );
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [selectedRows, setSelectedRows] = useState<Record<string, any>[]>([]);
 
   const handleButtonClick = () => {
     setShowDropdown(!showDropdown);
