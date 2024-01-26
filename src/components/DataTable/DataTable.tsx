@@ -12,7 +12,6 @@ export type TColumn = {
   id: string | number;
   name: string;
   selector: string | ((row: any) => any);
-  fixed?: boolean;
 };
 
 type DataTableProps = {

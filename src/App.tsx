@@ -163,6 +163,7 @@ function App() {
   ];
   return (
     <div>
+      {/* EXAMPLE USAGE */}
       <DataTable
         tableKey={"demoTable"}
         columns={columns}
