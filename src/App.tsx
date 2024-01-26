@@ -24,9 +24,9 @@ function App() {
       email: "arickeard0@meetup.com",
       phone: "341-798-9523",
       city: "Jubao",
-      state: null,
+      state: "Jiangsu",
       country: "China",
-      postal: null,
+      postal: "225300",
       company: "Skynoodle",
       job: "Software Consultant",
     },
@@ -50,9 +50,9 @@ function App() {
       email: "cgerritzen2@edublogs.org",
       phone: "707-760-6219",
       city: "Yangiobod",
-      state: null,
+      state: "Toshkent Shahri",
       country: "Uzbekistan",
-      postal: null,
+      postal: "1231",
       company: "Zoozzy",
       job: "Automation Specialist II",
     },
@@ -63,7 +63,7 @@ function App() {
       email: "dbanker3@t-online.de",
       phone: "379-522-0355",
       city: "Yur’yev-Pol’skiy",
-      state: null,
+      state: "Champagne-Ardenne",
       country: "Russia",
       postal: "601800",
       company: "Jamia",
@@ -76,9 +76,9 @@ function App() {
       email: "mcrump4@techcrunch.com",
       phone: "677-294-4817",
       city: "Los Palacios",
-      state: null,
+      state: "Pinar del Río",
       country: "Cuba",
-      postal: null,
+      postal: "22400",
       company: "Gigaclub",
       job: "Web Designer III",
     },
@@ -102,7 +102,7 @@ function App() {
       email: "gdenerley6@unesco.org",
       phone: "469-156-0069",
       city: "Władysławowo",
-      state: null,
+      state: "Pomerania",
       country: "Poland",
       postal: "84-120",
       company: "Brainlounge",
@@ -115,9 +115,9 @@ function App() {
       email: "konge7@comcast.net",
       phone: "257-566-5580",
       city: "Sorang",
-      state: null,
+      state: "Aqmola",
       country: "Kazakhstan",
-      postal: null,
+      postal: "021100",
       company: "Bluejam",
       job: "Staff Scientist",
     },
@@ -141,9 +141,9 @@ function App() {
       email: "dbrecken9@google.co.jp",
       phone: "569-323-0280",
       city: "Molodohvardiys’k",
-      state: null,
+      state: "Donets’ka Oblast’",
       country: "Ukraine",
-      postal: null,
+      postal: "85300",
       company: "Mydeo",
       job: "Assistant Professor",
     },
@@ -154,21 +154,27 @@ function App() {
     { id: 2, name: "Age", selector: (row) => <p>{row.age}</p> },
     { id: 3, name: "Email", selector: (row) => <p>{row.email}</p> },
     { id: 4, name: "Phone", selector: (row) => <p>{row.phone}</p> },
-    { id: 5, name: "Address", selector: (row) => <p>{row.address}</p> },
-    { id: 6, name: "City", selector: (row) => <p>{row.city}</p> },
-    { id: 7, name: "State", selector: (row) => <p>{row.state}</p> },
-    { id: 8, name: "Country", selector: (row) => <p>{row.country}</p> },
-    { id: 9, name: "Postal", selector: (row) => <p>{row.postal}</p> },
-    {
-      id: 10,
-      name: "Company",
-      selector: (row) => <p>{row.company}</p>,
-    },
-    { id: 11, name: "Job", selector: (row) => <p>{row.job}</p> },
+    { id: 5, name: "City", selector: (row) => <p>{row.city}</p> },
+    { id: 6, name: "State", selector: (row) => <p>{row.state}</p> },
+    { id: 7, name: "Country", selector: (row) => <p>{row.country}</p> },
+    { id: 8, name: "Postal", selector: (row) => <p>{row.postal}</p> },
+    { id: 9, name: "Company", selector: (row) => <p>{row.company}</p> },
+    { id: 10, name: "Job", selector: (row) => <p>{row.job}</p> },
   ];
   return (
     <div>
-      <DataTable tableKey={"demoTable"} columns={columns} data={data} filter />
+      <DataTable
+        tableKey={"demoTable"}
+        columns={columns}
+        data={data}
+        filter
+        selectableRows
+        search
+        singleSelect
+        onSelectedRowsChange={(rows) => console.log(rows)}
+        handleSearch={(value) => console.log(value)}
+        debounceSearchTime={500}
+      />
     </div>
   );
 }

@@ -15,8 +15,9 @@ export type TColumn = {
 };
 
 type DataTableProps = {
-  tableKey: any;
+  tableKey: string;
   data: any[];
+  handleSearch?: (value: string) => void;
   columns: TColumn[];
   filter?: boolean;
   search?: boolean;
@@ -31,6 +32,7 @@ type DataTableProps = {
   noDataFoundComponent?: React.ReactNode;
   loadingComponent?: React.ReactNode;
   singleSelect?: boolean;
+  debounceSearchTime?: number;
 };
 
 type EditModes = "order" | "show" | null;
@@ -52,11 +54,13 @@ const DataTable: React.FC<DataTableProps> = ({
   paginationTotalRows,
   noDataFoundComponent = <p className="flex justify-center">No Data</p>,
   loadingComponent = <p className="flex justify-center">Loading...</p>,
+  handleSearch,
+  debounceSearchTime,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [editMode, setEditMode] = useState<EditModes>(null);
   const [selectedColumns, setSelectedColumns] = useState<TColumn[]>(
-    columns.map((column) => column)
+    columns?.map((column) => column)
   );
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const handleButtonClick = () => {
@@ -139,6 +143,10 @@ const DataTable: React.FC<DataTableProps> = ({
     });
   };
 
+  const onSearchChange = (value: string) => {
+    handleSearch && search && handleSearch(value);
+  };
+
   return (
     <div className="container mx-auto my-10 bg-white border border-gray-300 rounded-xl">
       {filter && (
@@ -147,9 +155,8 @@ const DataTable: React.FC<DataTableProps> = ({
             {search && (
               <DebounceTextInput
                 placeHolder="Search..."
-                delay={1000}
-                minLetter={2}
-                onChange={(value) => console.log(value)}
+                delay={debounceSearchTime}
+                onChange={(value) => onSearchChange(value)}
               />
             )}
           </div>
